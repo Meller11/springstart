@@ -32,11 +32,6 @@ jobs:
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
 
-    env:
-      spring_datasource_url: ${{ secrets.SPRING_DATASOURCE_URL }}
-      spring_datasource_username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-      spring_datasource_password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -67,8 +62,5 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
 
-    env:
-      spring_datasource_url: ${{ secrets.SPRING_DATASOURCE_URL }}
-      spring_datasource_username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-      spring_datasource_password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+
 
