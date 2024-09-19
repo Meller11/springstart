@@ -1,6 +1,6 @@
 package kea.springstart.controller;
 
-import kea.springstart.model.Model;
+import kea.springstart.model.ModelDeveloper;
 import kea.springstart.modelRepo.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,24 +16,24 @@ public class RestController {
     @Autowired
     ModelRepository modelRepository;
 
-    @GetMapping("/model/{name}")
-    public Optional <Model>  getModelByName(@PathVariable String name) {
+    @GetMapping("/developer/{name}")
+    public Optional <ModelDeveloper>  getModelByName(@PathVariable String name) {
         return modelRepository.findByName(name);
     }
 
-    @GetMapping("/model")
-    public List<Model> findAllModels() {
+    @GetMapping("/developers")
+    public List<ModelDeveloper> findAllModels() {
         return modelRepository.findAll();
     }
 
-    @GetMapping("/model/add")
-    public Model addModel(@RequestParam String name, @RequestParam int age) {
-        Model model = new Model();
-        model.setName(name);
-        model.setAge(age);
-        modelRepository.save(model);
+    @GetMapping("/developer/add")
+    public ModelDeveloper addDeveloper(@RequestParam String name, @RequestParam int age) {
+        ModelDeveloper modelDeveloper = new ModelDeveloper();
+        modelDeveloper.setName(name);
+        modelDeveloper.setAge(age);
+        modelRepository.save(modelDeveloper);
 
-        return model;
+        return modelDeveloper;
     }
 
 
