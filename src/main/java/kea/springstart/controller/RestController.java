@@ -5,6 +5,7 @@ import kea.springstart.modelRepo.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,5 +25,16 @@ public class RestController {
     public List<Model> findAllModels() {
         return modelRepository.findAll();
     }
+
+    @GetMapping("/model/add")
+    public Model addModel(@RequestParam String name, @RequestParam int age) {
+        Model model = new Model();
+        model.setName(name);
+        model.setAge(age);
+        modelRepository.save(model);
+
+        return model;
+    }
+
 
 }
