@@ -4,7 +4,7 @@ import kea.springstart.model.ModelDeveloper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface ModelRepository extends JpaRepository<ModelDeveloper, Integer> {
+public interface RepositoryDeveloper extends JpaRepository<ModelDeveloper, Integer> {
     Optional<ModelDeveloper> findByName(String name);
 
 }

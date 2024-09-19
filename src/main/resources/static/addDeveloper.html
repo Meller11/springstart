@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Developer</title>
+</head>
+<body>
+<h1>Add Developer</h1>
+<form id="add-developer-form" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+    <button type="submit">Add Developer</button>
+</form>
+
+<div id="message"></div>
+
+<script>
+    document.getElementById('add-developer-form').addEventListener('submit', function(event) {
+        event.preventDefault();  // Forhindrer formularen i at sende en traditionel POST-anmodning og genindlæse siden
+
+        const formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('age', document.getElementById('age').value);
+        formData.append('image', document.getElementById('image').files[0]);
+
+        fetch('/developer/add', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add developer');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('message').textContent = 'Developer added successfully!';
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('add-developer-form').reset(); // Rydder formularen efter succesfuld tilføjelse
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('message').textContent = 'Failed to add developer. Please try again.';
+                document.getElementById('message').style.color = 'red';
+            });
+    });
+</script>
+</body>
+</html>
